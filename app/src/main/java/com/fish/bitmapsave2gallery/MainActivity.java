@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                         R.drawable.skillop);
-                ImgUtils.saveImageToGallery(MainActivity.this,bitmap);
+                ImgUtils.saveImageToGallery2(MainActivity.this,bitmap);
             }
         });
 

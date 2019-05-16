@@ -21,7 +21,7 @@ public class ImgUtils {
         File appDir = new File(storePath);
         if (!appDir.exists()) {
             boolean b = appDir.mkdir();
-            Log.d("ImgUtils","mkdir "+b);
+            Log.d("ImgUtils", "mkdir " + b);
         }
         String fileName = System.currentTimeMillis() + ".jpg";
         File file = new File(appDir, fileName);
@@ -34,7 +34,7 @@ public class ImgUtils {
 
             //把文件插入到系统图库
             String s1 = MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), fileName, null);
-            Log.d("ImgUtils",""+s1);
+            Log.d("ImgUtils", "" + s1);
             //保存图片后发送广播通知更新数据库
             Uri uri = Uri.fromFile(file);
             context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
@@ -44,6 +44,29 @@ public class ImgUtils {
                 return false;
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean saveImageToGallery2(Context context, Bitmap bmp) {
+        // 首先保存图片  /storage/emulated/0/dearxy
+
+        try {
+
+
+            //把文件插入到系统图库
+            String s1 = MediaStore.Images.Media.insertImage(context.getContentResolver(), bmp, "lallal_" + System.currentTimeMillis(), null);
+            Log.d("ImgUtils", "" + s1);
+            //保存图片后发送广播通知更新数据库
+            Uri uri = Uri.parse(s1);
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
+            if (s1 != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
